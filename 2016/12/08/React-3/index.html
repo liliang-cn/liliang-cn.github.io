@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"liliang-cn.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="React本身是特别简单的，因为它最初的目的就是搭建用户界面，对于复杂的应用来说，就需要借助Redux之类的JavaScript库来帮忙管理应用。 什么是Redux？Redux是一个JavaScript库，用来管理应用的状态，可以提供可预测化的状态管理。 什么时候需要Redux？你的应用是否有以下的需求：  复杂的数据流动； 组件间有互动； 非继承的数据； 大量的操作； 同样的数据在多处使用。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React(三)">
+<meta property="og:url" content="https://liliang-cn.github.io/2016/12/08/React-3/index.html">
+<meta property="og:site_name" content="可能不是苹果">
+<meta property="og:description" content="React本身是特别简单的，因为它最初的目的就是搭建用户界面，对于复杂的应用来说，就需要借助Redux之类的JavaScript库来帮忙管理应用。 什么是Redux？Redux是一个JavaScript库，用来管理应用的状态，可以提供可预测化的状态管理。 什么时候需要Redux？你的应用是否有以下的需求：  复杂的数据流动； 组件间有互动； 非继承的数据； 大量的操作； 同样的数据在多处使用。">
+<meta property="article:published_time" content="2016-12-08T11:46:43.000Z">
+<meta property="article:modified_time" content="2020-04-17T12:10:14.178Z">
+<meta property="article:author" content="Cy">
+<meta property="article:tag" content="JavaScript">
+<meta property="article:tag" content="React">
+<meta property="article:tag" content="Redux">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://liliang-cn.github.io/2016/12/08/React-3/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>React(三) | 可能不是苹果</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">可能不是苹果</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://liliang-cn.github.io/2016/12/08/React-3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Cy">
+      <meta itemprop="description" content="生存, 荣耀">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="可能不是苹果">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          React(三)
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2016-12-08 19:46:43" itemprop="dateCreated datePublished" datetime="2016-12-08T19:46:43+08:00">2016-12-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-04-17 20:10:14" itemprop="dateModified" datetime="2020-04-17T20:10:14+08:00">2020-04-17</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>React本身是特别简单的，因为它最初的目的就是搭建用户界面，对于复杂的应用来说，就需要借助Redux之类的JavaScript库来帮忙管理应用。</p>
+<h1 id="什么是Redux？"><a href="#什么是Redux？" class="headerlink" title="什么是Redux？"></a>什么是Redux？</h1><p>Redux是一个JavaScript库，用来管理应用的状态，可以提供可预测化的状态管理。</p>
+<h1 id="什么时候需要Redux？"><a href="#什么时候需要Redux？" class="headerlink" title="什么时候需要Redux？"></a>什么时候需要Redux？</h1><p>你的应用是否有以下的需求：</p>
+<ol>
+<li>复杂的数据流动；</li>
+<li>组件间有互动；</li>
+<li>非继承的数据；</li>
+<li>大量的操作；</li>
+<li>同样的数据在多处使用。</li>
+</ol>
+<p>如果有一项或一项以上，就可以考虑使用Redux。</p>
+<h1 id="Redux的核心要点"><a href="#Redux的核心要点" class="headerlink" title="Redux的核心要点"></a>Redux的核心要点</h1><p>我们先不要管那些听上去就云里雾里的<code>store</code>、<code>action</code>、<code>reducer</code>，而是捋一捋一个应用的使用，这里就前一篇文章中新建的Todos为例：</p>
+<a id="more"></a>
+<p>当我们打开应用的时候，页面上得有一些东西，比如未完成的事项、新增todo的加号按钮等等，这个没问题吧，虽然我们不知道背后的原理，但是有一点是确定的：有一个东西在控制着要显示的东西，我们称之为老大哥。如果能听到计算机在说话的一定是这样的：呀，老大哥，有人来了，怎么办？老大哥说不要方，把未完成的todos显示到屏幕上，还有加号。<br>当然我们没有听到计算机说了什么，只是看到了屏幕上有一些东西。<br>然后我们想新建一个todo，怎么办？当然是先点击一下加号，这个没问题吧，虽然我们不知道背后的原理，但是有一点是确定的：我们点击了一下这个加号的动作被捕捉到了。如果能听到计算机在说话的一定是这样的：呀，这个兄弟点击了一下，点击的是加号，老大哥怎么办？老大哥说这是个送分题啊，交给老二去回答。老二：呀，我知道他点了这个加号，我是不是得做点啥？我猜他点这个加号他一定是想要新建一个todo，怎么办呢？怎么呢？不要慌，先把表单显示到屏幕上让他输入内容吧先，嗯，对，就这么办，老大哥我知道怎么了。<br>当然我们没有听到计算机说了什么，只是在点击加号按钮以后就出现了新建todo的表单。</p>
+<p>[观众:你说的这是啥我为啥要关心这？]</p>
+<p>虽然例子可能不是完全贴切，但这就是我们的<code>store</code>、<code>action</code>、<code>reducer</code>。应用的状态都由老大哥<code>store</code>控制，状态的改变需要发起一个动作<code>action</code>，描述动作该如何改变状态就需要老二即处理器<code>reducer</code>。<br>这个基本上是大白话了，接下来用JavaScript语言来下定义：<br><code>store</code>： 一个对象，它包含着应用的所有信息。<br><code>action</code>： 一个对象，包含着动作的信息(至少要包含一个<code>type</code>属性，用来描述发生了什么事)。<br><code>reducer</code>： 一个函数，确定针对特定的动作，状态要如何改变，这个函数必须有两个参数，当前的状态和动作，返回值只有一个就是变化后的状态。</p>
+<p>[观众:为什么要这么做？]</p>
+<p>为了让整个系统受监控，然后有条不紊运行，什么人什么时候唱仇恨歌的愤怒不到位就一清二楚了。</p>
+<h1 id="Redux的三个原则"><a href="#Redux的三个原则" class="headerlink" title="Redux的三个原则"></a>Redux的三个原则</h1><h2 id="Single-source-of-truth-中央集权-真相只有一个-单一数据源"><a href="#Single-source-of-truth-中央集权-真相只有一个-单一数据源" class="headerlink" title="Single source of truth 中央集权/真相只有一个/单一数据源"></a>Single source of truth 中央集权/真相只有一个/单一数据源</h2><p>用一个对象来描述应用的状态，只要这个对象确定，应用的状态就确定了。</p>
+<h2 id="State-is-read-only-领红头文件-状态只读"><a href="#State-is-read-only-领红头文件-状态只读" class="headerlink" title="State is read-only 领红头文件/状态只读"></a>State is read-only 领红头文件/状态只读</h2><p>那我想要钱怎么办？打个报告说莱茵河水又泛滥了，要钱修大坝。</p>
+<h2 id="Changes-are-made-with-pure-functions-廉洁的财政部"><a href="#Changes-are-made-with-pure-functions-廉洁的财政部" class="headerlink" title="Changes are made with pure functions 廉洁的财政部"></a>Changes are made with pure functions 廉洁的财政部</h2><p>你要钱我就给80%，你上税我就收。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+              <a href="/tags/React/" rel="tag"># React</a>
+              <a href="/tags/Redux/" rel="tag"># Redux</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2016/12/07/React-2/" rel="prev" title="React(二)">
+      <i class="fa fa-chevron-left"></i> React(二)
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2016/12/22/JavaScript%E6%95%B0%E7%BB%84%E5%8E%BB%E9%87%8D/" rel="next" title="JavaScript数组去重">
+      JavaScript数组去重 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是Redux？"><span class="nav-number">1.</span> <span class="nav-text">什么是Redux？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#什么时候需要Redux？"><span class="nav-number">2.</span> <span class="nav-text">什么时候需要Redux？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Redux的核心要点"><span class="nav-number">3.</span> <span class="nav-text">Redux的核心要点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Redux的三个原则"><span class="nav-number">4.</span> <span class="nav-text">Redux的三个原则</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Single-source-of-truth-中央集权-真相只有一个-单一数据源"><span class="nav-number">4.1.</span> <span class="nav-text">Single source of truth 中央集权&#x2F;真相只有一个&#x2F;单一数据源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#State-is-read-only-领红头文件-状态只读"><span class="nav-number">4.2.</span> <span class="nav-text">State is read-only 领红头文件&#x2F;状态只读</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Changes-are-made-with-pure-functions-廉洁的财政部"><span class="nav-number">4.3.</span> <span class="nav-text">Changes are made with pure functions 廉洁的财政部</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Cy</p>
+  <div class="site-description" itemprop="description">生存, 荣耀</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cy</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

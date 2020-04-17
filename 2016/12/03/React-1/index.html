@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"liliang-cn.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="React的设计思想React是基于具有特性(props)、状态(state)和生命周期方法(lifecycle methods)的组件来构建用户界面的JavaScript库。 组件化什么是组件化？就像我们造汽车一样，分别制造车身、动力总成，底盘等，然后组装起来，并且各个系统又是由各自的子系统组装而成。 props和state我在这里将它们分别称为特性和状态，什么叫特性？就是那些能把你跟别人区分出">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React(一)">
+<meta property="og:url" content="https://liliang-cn.github.io/2016/12/03/React-1/index.html">
+<meta property="og:site_name" content="可能不是苹果">
+<meta property="og:description" content="React的设计思想React是基于具有特性(props)、状态(state)和生命周期方法(lifecycle methods)的组件来构建用户界面的JavaScript库。 组件化什么是组件化？就像我们造汽车一样，分别制造车身、动力总成，底盘等，然后组装起来，并且各个系统又是由各自的子系统组装而成。 props和state我在这里将它们分别称为特性和状态，什么叫特性？就是那些能把你跟别人区分出">
+<meta property="article:published_time" content="2016-12-03T10:35:18.000Z">
+<meta property="article:modified_time" content="2020-04-17T12:10:14.178Z">
+<meta property="article:author" content="Cy">
+<meta property="article:tag" content="JavaScript">
+<meta property="article:tag" content="React">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://liliang-cn.github.io/2016/12/03/React-1/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>React(一) | 可能不是苹果</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">可能不是苹果</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://liliang-cn.github.io/2016/12/03/React-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Cy">
+      <meta itemprop="description" content="生存, 荣耀">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="可能不是苹果">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          React(一)
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2016-12-03 18:35:18" itemprop="dateCreated datePublished" datetime="2016-12-03T18:35:18+08:00">2016-12-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-04-17 20:10:14" itemprop="dateModified" datetime="2020-04-17T20:10:14+08:00">2020-04-17</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="React的设计思想"><a href="#React的设计思想" class="headerlink" title="React的设计思想"></a>React的设计思想</h1><p>React是基于具有特性(<code>props</code>)、状态(<code>state</code>)和生命周期方法(<code>lifecycle methods</code>)的组件来构建用户界面的JavaScript库。</p>
+<h2 id="组件化"><a href="#组件化" class="headerlink" title="组件化"></a>组件化</h2><p>什么是组件化？就像我们造汽车一样，分别制造车身、动力总成，底盘等，然后组装起来，并且各个系统又是由各自的子系统组装而成。</p>
+<h2 id="props和state"><a href="#props和state" class="headerlink" title="props和state"></a>props和state</h2><p>我在这里将它们分别称为特性和状态，什么叫特性？就是那些能把你跟别人区分出来的信息，比如你的出生日期，你的性别，你的父母等，这些信息是不会轻易发生改变的。状态则指的是当前的信息，比如刚大学毕业，没有女朋友，这些信息以后有可能会发生变化。我们通过特性和状态就可以来描述一个人。<br>来到我们的Web中，我们把若干个具有自己的特性和状态单元组合在一起就可以呈现出完整的界面来。</p>
+<h2 id="生命周期方法"><a href="#生命周期方法" class="headerlink" title="生命周期方法"></a>生命周期方法</h2><p>就像一辆汽车一样，它会经历多个阶段，从制造到销售到使用再到最后的报废，我们的组件有也会有生命周期，用来获取组件的信息，或者对发生的变化做出反应，比如获得某个特性的时候，有状态更新的时候。一般来说，所有的组件都会经历初始化、运行中和销毁三个阶段，每个阶段都有开发者可以自定义的函数，执行不同的行为。</p>
+<a id="more"></a>
+
+<h1 id="Virtual-DOM和JSX"><a href="#Virtual-DOM和JSX" class="headerlink" title="Virtual DOM和JSX"></a>Virtual DOM和JSX</h1><h2 id="Virtual-DOM"><a href="#Virtual-DOM" class="headerlink" title="Virtual DOM"></a>Virtual DOM</h2><p>为了操作DOM，我们需要把DOM树存储在内存中，用JS对象的形式来描述DOM，发生变化时只更改变化的部分。</p>
+<h2 id="JSX"><a href="#JSX" class="headerlink" title="JSX"></a>JSX</h2><p>React推荐使用JSX的语法，所谓JSX就是直接在js中写html片段。</p>
+<h1 id="第一个应用"><a href="#第一个应用" class="headerlink" title="第一个应用"></a>第一个应用</h1><p>这里使用<code>create-react-app</code>来创建应用，首先<code>npm install -g create-react-app</code>安装，然后在工作目录下使用<code>create-react-app hello_react</code>就可以创建一个React应用。</p>
+<p>将<code>src/index.js</code>更改为以下内容：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> ReactDOM <span class="keyword">from</span> <span class="string">'react-dom'</span>;</span><br><span class="line"></span><br><span class="line">ReactDOM.render(</span><br><span class="line">  &lt;div&gt;Hello World!&lt;<span class="regexp">/div&gt;,</span></span><br><span class="line"><span class="regexp">  document.getElementById('root')</span></span><br><span class="line"><span class="regexp">);</span></span><br></pre></td></tr></table></figure>
+
+<p>这里的做的事情就是把一个包含着<code>Hello World</code>内容的<code>div</code>元素渲染到ID为<code>root</code>的DOM元素上。<br>执行<code>npm start</code>然后再浏览器中打开<code>localhost:3000</code>就可以看到<code>Hello World!</code>出现在了屏幕上。</p>
+<p>我们渲染的东西也可以是我们自定义的东西。比如可以将一个<code>html</code>片段一次性渲染到ID为<code>root</code>的元素上。<br>将<code>src/index.js</code>更改为以下内容：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> ReactDOM <span class="keyword">from</span> <span class="string">'react-dom'</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Stuff</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;div&gt;</span><br><span class="line">        &lt;h2&gt;这是一个H2&lt;<span class="regexp">/h2&gt;</span></span><br><span class="line"><span class="regexp">        &lt;ul&gt;</span></span><br><span class="line"><span class="regexp">          这是一个列表：</span></span><br><span class="line"><span class="regexp">          &lt;li&gt;第一个列表项&lt;/</span>li&gt;</span><br><span class="line">          &lt;li&gt;第二个列表项&lt;<span class="regexp">/li&gt;</span></span><br><span class="line"><span class="regexp">          &lt;li&gt;第三个列表项&lt;/</span>li&gt;</span><br><span class="line">        &lt;<span class="regexp">/ul&gt;</span></span><br><span class="line"><span class="regexp">      &lt;/</span>div&gt;</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ReactDOM.render(</span><br><span class="line">  &lt;Stuff /&gt;,</span><br><span class="line">  <span class="built_in">document</span>.getElementById(<span class="string">'root'</span>)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<p>这样的话，我们在Stuff中定义的<code>html</code>片段也会渲染在最终的<code>html</code>中，这里是<code>render()</code>方法的返回值。<br>这就是前面提到的JSX，<code>render</code>方法中普通的JS表达式则需要用花括号包裹起来，比如：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Stuff</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">const</span> navItems = [<span class="string">'首页'</span>, <span class="string">'关于'</span>, <span class="string">'联系'</span>];</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;div&gt;</span><br><span class="line">        &lt;h2&gt;渲染列表项&lt;<span class="regexp">/h2&gt;</span></span><br><span class="line"><span class="regexp">        &lt;ul&gt;</span></span><br><span class="line"><span class="regexp">          &#123;</span></span><br><span class="line"><span class="regexp">            navItems.map(navItem =&gt; &lt;li key=&#123;navItem&#125;&gt;&#123;navItem&#125;&lt;/</span>li&gt;)</span><br><span class="line">          &#125;</span><br><span class="line">        &lt;<span class="regexp">/ul&gt;</span></span><br><span class="line"><span class="regexp">      &lt;/</span>div&gt;</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<p>在<code>render()</code>方法中先定义了一个列表，然后<code>map</code>方法对列表进行迭代，将每一项的值赋给一个<code>li</code>，循环渲染的时候需要给每一个子项一个唯一的标识。<br>这样的话，我们就实现了列表的渲染。如果数据是从由父组件传递给子组件，或者在实例化的时候被赋值，可以使用<code>props</code>：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> ReactDOM <span class="keyword">from</span> <span class="string">'react-dom'</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Stuff</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;div&gt;</span><br><span class="line">        &lt;h2&gt;渲染列表项&lt;<span class="regexp">/h2&gt;</span></span><br><span class="line"><span class="regexp">        &lt;ul&gt;</span></span><br><span class="line"><span class="regexp">          &#123;</span></span><br><span class="line"><span class="regexp">            this.props.navItems.map(navItem =&gt; &lt;li key=&#123;navItem&#125;&gt;&#123;navItem&#125;&lt;/</span>li&gt;)</span><br><span class="line">          &#125;</span><br><span class="line">        &lt;<span class="regexp">/ul&gt;</span></span><br><span class="line"><span class="regexp">      &lt;/</span>div&gt;</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ReactDOM.render(</span><br><span class="line">  &lt;Stuff navItems=&#123;[<span class="string">'首页'</span>, <span class="string">'关于'</span>, <span class="string">'联系'</span>]&#125; /&gt;,</span><br><span class="line">  <span class="built_in">document</span>.getElementById(<span class="string">'root'</span>)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<p>我们通过类似于<code>html</code>标签的属性值的形式，将数据(这里是一个数组)传递到<code>Stuff</code>中，然后在<code>Stuff</code>中可以通过<code>props</code>来使用。当然复杂界面需要元素各自都有一部分的处理能力。我们可以通过<code>state</code>和事件来实现：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> ReactDOM <span class="keyword">from</span> <span class="string">'react-dom'</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Stuff</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(props) &#123;</span><br><span class="line">    <span class="keyword">super</span>(props);</span><br><span class="line">    <span class="keyword">this</span>.state = &#123;</span><br><span class="line">      navItems: <span class="keyword">this</span>.props.navItems</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">this</span>.HandleCilck = <span class="keyword">this</span>.HandleCilck.bind(<span class="keyword">this</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  HandleCilck() &#123;</span><br><span class="line">    <span class="keyword">this</span>.setState(&#123;</span><br><span class="line">      navItems: [...this.state.navItems, <span class="string">'新增的导航条目'</span>]</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;div&gt;</span><br><span class="line">        &lt;h2&gt;渲染列表项&lt;<span class="regexp">/h2&gt;</span></span><br><span class="line"><span class="regexp">        &lt;ul&gt;</span></span><br><span class="line"><span class="regexp">          &#123;</span></span><br><span class="line"><span class="regexp">            this.state.navItems.map((navItem, index) =&gt; &lt;li key=&#123;index&#125;&gt;&#123;navItem&#125;&lt;/</span>li&gt;)</span><br><span class="line">          &#125;</span><br><span class="line">        &lt;<span class="regexp">/ul&gt;</span></span><br><span class="line"><span class="regexp">        &lt;button onClick=&#123;this.HandleCilck&#125;&gt;点我&lt;/</span>button&gt;</span><br><span class="line">      &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">    );</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">ReactDOM.render(</span></span><br><span class="line"><span class="regexp">  &lt;Stuff navItems=&#123;['首页', '关于', '联系']&#125; /</span>&gt;,</span><br><span class="line">  <span class="built_in">document</span>.getElementById(<span class="string">'root'</span>)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<p>在这里我们使用<code>state</code>使得<code>Stuff</code>组件会有自己的状态，并且可以通过button的点击事件来更新<code>state</code>，只要<code>state</code>更新，界面就会更新。<br>首先我们在constructor中使用this.state来定义状态(这里使用实例化时传递进来的props作为其默认的状态)，然后在点击事件的处理函数<code>HandleCilck()</code>中调用<code>this.setState()</code>来更新<code>state</code>。<br><a href="https://helloreact-uxnvpxajmq.now.sh/" target="_blank" rel="noopener">点击这里</a>查看运行结果。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+              <a href="/tags/React/" rel="tag"># React</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2016/11/24/now-next/" rel="prev" title="now和next简介">
+      <i class="fa fa-chevron-left"></i> now和next简介
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2016/12/07/React-2/" rel="next" title="React(二)">
+      React(二) <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#React的设计思想"><span class="nav-number">1.</span> <span class="nav-text">React的设计思想</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#组件化"><span class="nav-number">1.1.</span> <span class="nav-text">组件化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#props和state"><span class="nav-number">1.2.</span> <span class="nav-text">props和state</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#生命周期方法"><span class="nav-number">1.3.</span> <span class="nav-text">生命周期方法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Virtual-DOM和JSX"><span class="nav-number">2.</span> <span class="nav-text">Virtual DOM和JSX</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Virtual-DOM"><span class="nav-number">2.1.</span> <span class="nav-text">Virtual DOM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JSX"><span class="nav-number">2.2.</span> <span class="nav-text">JSX</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第一个应用"><span class="nav-number">3.</span> <span class="nav-text">第一个应用</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Cy</p>
+  <div class="site-description" itemprop="description">生存, 荣耀</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cy</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

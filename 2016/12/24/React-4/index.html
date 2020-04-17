@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"liliang-cn.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="React-Redux-Appointment这个小应用使用Create React App创建,演示地址:https:&#x2F;&#x2F;liliang-cn.github.io&#x2F;react_redux_appointment，repo地址：https:&#x2F;&#x2F;github.com&#x2F;liliang-cn&#x2F;react_redux_appointment。 这是之前的React_appointment的Redux版，之">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React、Redux应用：React_Redux_Appointment">
+<meta property="og:url" content="https://liliang-cn.github.io/2016/12/24/React-4/index.html">
+<meta property="og:site_name" content="可能不是苹果">
+<meta property="og:description" content="React-Redux-Appointment这个小应用使用Create React App创建,演示地址:https:&#x2F;&#x2F;liliang-cn.github.io&#x2F;react_redux_appointment，repo地址：https:&#x2F;&#x2F;github.com&#x2F;liliang-cn&#x2F;react_redux_appointment。 这是之前的React_appointment的Redux版，之">
+<meta property="article:published_time" content="2016-12-24T10:44:13.000Z">
+<meta property="article:modified_time" content="2020-04-17T12:10:14.178Z">
+<meta property="article:author" content="Cy">
+<meta property="article:tag" content="react">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://liliang-cn.github.io/2016/12/24/React-4/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>React、Redux应用：React_Redux_Appointment | 可能不是苹果</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">可能不是苹果</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://liliang-cn.github.io/2016/12/24/React-4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Cy">
+      <meta itemprop="description" content="生存, 荣耀">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="可能不是苹果">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          React、Redux应用：React_Redux_Appointment
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2016-12-24 18:44:13" itemprop="dateCreated datePublished" datetime="2016-12-24T18:44:13+08:00">2016-12-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-04-17 20:10:14" itemprop="dateModified" datetime="2020-04-17T20:10:14+08:00">2020-04-17</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="React-Redux-Appointment"><a href="#React-Redux-Appointment" class="headerlink" title="React-Redux-Appointment"></a>React-Redux-Appointment</h1><p>这个小应用使用<a href="https://github.com/facebookincubator/create-react-app" target="_blank" rel="noopener">Create React App</a>创建,演示地址:<a href="https://liliang-cn.github.io/react_redux_appointment">https://liliang-cn.github.io/react_redux_appointment</a>，repo地址：<a href="https://github.com/liliang-cn/react_redux_appointment" target="_blank" rel="noopener">https://github.com/liliang-cn/react_redux_appointment</a>。</p>
+<p>这是之前的<a href="https://github.com/liliang-cn/react_appointment" target="_blank" rel="noopener">React_appointment</a>的Redux版，<a href="https://quiet-falls-10277.herokuapp.com/" target="_blank" rel="noopener">之前的演示</a>，改写自Lynda的课程<a href="https://www.lynda.com/React-js-tutorials/Welcome/495271/511713-4.html?srchtrk=index%3a0%0alinktypeid%3a2%0aq%3aBuilding+a+Web+Interface+with+React.js%0apage%3a1%0as%3arelevance%0asa%3atrue%0aproducttypeid%3a2" target="_blank" rel="noopener">Building a Web Interface with React.js</a>。</p>
+<h2 id="文件结构"><a href="#文件结构" class="headerlink" title="文件结构"></a>文件结构</h2><p>最终的文件目录如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">react_redux_appointment&#x2F;</span><br><span class="line">  README.md</span><br><span class="line">  node_modules&#x2F;</span><br><span class="line">  package.json</span><br><span class="line">  public&#x2F;</span><br><span class="line">    index.html</span><br><span class="line">    favicon.ico</span><br><span class="line">  src&#x2F;</span><br><span class="line">    actions&#x2F;</span><br><span class="line">      index.js</span><br><span class="line">    components&#x2F;</span><br><span class="line">      AddForm.js</span><br><span class="line">      AptList.js</span><br><span class="line">      Search.js</span><br><span class="line">      Sort.js</span><br><span class="line">    constants&#x2F;</span><br><span class="line">      index.js</span><br><span class="line">    containers&#x2F;</span><br><span class="line">      AddForm.js</span><br><span class="line">      App.js</span><br><span class="line">    reducers&#x2F;</span><br><span class="line">      apts.js</span><br><span class="line">      formExpanded.js</span><br><span class="line">      index.js</span><br><span class="line">      openDialog.js</span><br><span class="line">      orderBy.js</span><br><span class="line">      orderDir.js</span><br><span class="line">      query.js</span><br><span class="line">    index.css</span><br><span class="line">    index.js</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+
+<h2 id="用到的模块"><a href="#用到的模块" class="headerlink" title="用到的模块"></a>用到的模块</h2><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"name"</span>: <span class="string">"react_redux_appointment"</span>,</span><br><span class="line">  <span class="attr">"version"</span>: <span class="string">"0.1.0"</span>,</span><br><span class="line">  <span class="attr">"private"</span>: <span class="literal">true</span>,</span><br><span class="line">  <span class="attr">"homepage"</span>: <span class="string">"https://liliang-cn.github.io/react_redux_appointment"</span>,</span><br><span class="line">  <span class="attr">"devDependencies"</span>: &#123;</span><br><span class="line">    <span class="attr">"react-scripts"</span>: <span class="string">"0.8.4"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">"dependencies"</span>: &#123;</span><br><span class="line">    <span class="attr">"axios"</span>: <span class="string">"^0.15.3"</span>,</span><br><span class="line">    <span class="attr">"gh-pages"</span>: <span class="string">"^0.12.0"</span>,</span><br><span class="line">    <span class="attr">"lodash"</span>: <span class="string">"^4.17.2"</span>,</span><br><span class="line">    <span class="attr">"material-ui"</span>: <span class="string">"^0.16.5"</span>,</span><br><span class="line">    <span class="attr">"moment"</span>: <span class="string">"^2.17.1"</span>,</span><br><span class="line">    <span class="attr">"react"</span>: <span class="string">"^15.4.1"</span>,</span><br><span class="line">    <span class="attr">"react-dom"</span>: <span class="string">"^15.4.1"</span>,</span><br><span class="line">    <span class="attr">"react-redux"</span>: <span class="string">"^5.0.1"</span>,</span><br><span class="line">    <span class="attr">"react-tap-event-plugin"</span>: <span class="string">"^2.0.1"</span>,</span><br><span class="line">    <span class="attr">"redux"</span>: <span class="string">"^3.6.0"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">"scripts"</span>: &#123;</span><br><span class="line">    <span class="attr">"start"</span>: <span class="string">"react-scripts start"</span>,</span><br><span class="line">    <span class="attr">"build"</span>: <span class="string">"react-scripts build"</span>,</span><br><span class="line">    <span class="attr">"deploy"</span>: <span class="string">"yarn build &amp;&amp; gh-pages -d build"</span>,</span><br><span class="line">    <span class="attr">"test"</span>: <span class="string">"react-scripts test --env=jsdom"</span>,</span><br><span class="line">    <span class="attr">"eject"</span>: <span class="string">"react-scripts eject"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="所有的state"><a href="#所有的state" class="headerlink" title="所有的state"></a>所有的state</h2><p>小应用一共有六个状态，其中的formExpanded和openDialog是界面组件的状态，<br>剩下的四个分别是apts(代表所有的预约)、orderBy(根据什么来排列预约列表，根据姓名还是根据日期)、<br>orderDir(排列列表的方向，是增序还是降序)、query(搜索的关键字)。</p>
+<h2 id="所有的Action"><a href="#所有的Action" class="headerlink" title="所有的Action"></a>所有的Action</h2><p>在应用中可能产生的actions有七种：</p>
+<ul>
+<li>addApt，即新建预约</li>
+<li>deleteApt， 即删除预约</li>
+<li>toggleDialog， 即显示、隐藏警告框</li>
+<li>toggleFormExpanded, 显示/隐藏表单</li>
+<li>query，即查询</li>
+<li>changeOrderBy，即改变排序的关键字</li>
+<li>changeOrderDir, 即改变排序方向</li>
+</ul>
+<p>定义七个常量来代表这些action的类型：</p>
+<p><code>constants/index.js</code>:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> ADD_APT = <span class="string">'ADD_APT'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> DELETE_APT = <span class="string">'DELETE_APT'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> TOGGLE_DIALOG = <span class="string">'TOGGLE_DIALOG'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> TOGGLE_FORM_EXPANDED = <span class="string">'TOGGLE_FORM_EXPANDED'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> QUERY = <span class="string">'QUERY'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> CHANGE_ORDER_BY = <span class="string">'CHANGE_ORDER_BY'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> CHANGE_ORDER_DIR = <span class="string">'CHANGE_ORDER_DIR'</span>;</span><br></pre></td></tr></table></figure>
+
+<p><code>actions/index.js</code>:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123;</span><br><span class="line">    ADD_APT,</span><br><span class="line">    DELETE_APT,</span><br><span class="line">    TOGGLE_DIALOG,</span><br><span class="line">    TOGGLE_FORM_EXPANDED,</span><br><span class="line">    QUERY,</span><br><span class="line">    CHANGE_ORDER_BY,</span><br><span class="line">    CHANGE_ORDER_DIR</span><br><span class="line">&#125; <span class="keyword">from</span> <span class="string">'../constants'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> addApt = <span class="function">(<span class="params">apt</span>) =&gt;</span> (&#123;</span><br><span class="line">    type: ADD_APT,</span><br><span class="line">    apt</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> deleteApt = <span class="function">(<span class="params">id</span>) =&gt;</span> (&#123;</span><br><span class="line">    type: DELETE_APT,</span><br><span class="line">    id</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> toggleDialog = <span class="function"><span class="params">()</span> =&gt;</span> (&#123;</span><br><span class="line">    type: TOGGLE_DIALOG</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> toggleFormExpanded = <span class="function"><span class="params">()</span> =&gt;</span> (&#123;</span><br><span class="line">    type: TOGGLE_FORM_EXPANDED</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> query = <span class="function">(<span class="params">query</span>) =&gt;</span> (&#123;</span><br><span class="line">    type: QUERY,</span><br><span class="line">    query</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> changeOrderBy = <span class="function">(<span class="params">orderBy</span>) =&gt;</span> (&#123;</span><br><span class="line">    type: CHANGE_ORDER_BY,</span><br><span class="line">    orderBy</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> changeOrderDir = <span class="function">(<span class="params">orderDir</span>) =&gt;</span> (&#123;</span><br><span class="line">    type: CHANGE_ORDER_DIR,</span><br><span class="line">    orderDir</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h2 id="UI组件"><a href="#UI组件" class="headerlink" title="UI组件"></a>UI组件</h2><h3 id="样式"><a href="#样式" class="headerlink" title="样式"></a>样式</h3><p>使用Material-UI需要引入Roboto字体：</p>
+<p><code>src/index.css</code></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@import</span> url(<span class="string">'https://fonts.googleapis.com/css?family=Roboto:300,400,500'</span>);</span><br><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">font-family</span>: Roboto, sans-serif;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="表单组件"><a href="#表单组件" class="headerlink" title="表单组件"></a>表单组件</h3><p><code>components/addForm.js</code>:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123;Card, CardHeader, CardText&#125; <span class="keyword">from</span> <span class="string">'material-ui/Card'</span>;</span><br><span class="line"><span class="keyword">import</span> TextField <span class="keyword">from</span> <span class="string">'material-ui/TextField'</span>;</span><br><span class="line"><span class="keyword">import</span> DatePicker <span class="keyword">from</span> <span class="string">'material-ui/DatePicker'</span>;</span><br><span class="line"><span class="keyword">import</span> TimePicker <span class="keyword">from</span> <span class="string">'material-ui/TimePicker'</span>;</span><br><span class="line"><span class="keyword">import</span> RaisedButton <span class="keyword">from</span> <span class="string">'material-ui/RaisedButton'</span>;</span><br><span class="line"><span class="keyword">import</span> Paper <span class="keyword">from</span> <span class="string">'material-ui/Paper'</span>;</span><br><span class="line"><span class="keyword">import</span> Divider <span class="keyword">from</span> <span class="string">'material-ui/Divider'</span>;</span><br><span class="line"><span class="keyword">import</span> Dialog <span class="keyword">from</span> <span class="string">'material-ui/Dialog'</span>;</span><br><span class="line"><span class="keyword">import</span> FlatButton <span class="keyword">from</span> <span class="string">'material-ui/FlatButton'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> moment <span class="keyword">from</span> <span class="string">'moment'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> paperStyle = &#123;</span><br><span class="line">  width: <span class="number">340</span>,</span><br><span class="line">  margin: <span class="string">'0 auto 20px'</span>,</span><br><span class="line">  textAlign: <span class="string">'center'</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> buttonStyle = &#123;</span><br><span class="line">    margin: <span class="number">12</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// open, toggleDialog是两个布尔值，handleAdd，formExpanded, toggleFormExpanded是三个回调函数，来自于../containers/AddForm.js中的容器从store中获取并传递下来的</span></span><br><span class="line"><span class="keyword">const</span> AddForm = <span class="function">(<span class="params">&#123;handleAdd, open, toggleDialog, formExpanded, toggleFormExpanded&#125;</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> guestName, date, time, note;</span><br><span class="line">    <span class="comment">// 点击Add时会先首先检查是否所有的值都有输入，如果输入合法则发起ADD_APT的action然后发起切换表单显示的action，如果输入有误则发起TOGGLE_DIALOG的action</span></span><br><span class="line">    <span class="keyword">const</span> onAdd = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        guestName &amp;&amp; date &amp;&amp; time &amp;&amp; note</span><br><span class="line">        ?</span><br><span class="line">        handleAdd(&#123;guestName, date, time, note&#125;) &amp;&amp; toggleFormExpanded()</span><br><span class="line">        :</span><br><span class="line">        toggleDialog()</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 这两个函数用来获取输入的日期和时间</span></span><br><span class="line">    <span class="keyword">const</span> handleDateChange = <span class="function">(<span class="params">event, aptDate</span>) =&gt;</span> &#123;</span><br><span class="line">        date = moment(aptDate).format(<span class="string">'YYYY-MM-DD'</span>)</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> handleTimeChange = <span class="function">(<span class="params">event, aptTime</span>) =&gt;</span> &#123;</span><br><span class="line">        time = moment(aptTime).format(<span class="string">'hh:mm'</span>)</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> actions = [</span><br><span class="line">        &lt;FlatButton</span><br><span class="line">            label=<span class="string">"OK"</span></span><br><span class="line">            primary=&#123;<span class="literal">true</span>&#125;</span><br><span class="line">            onTouchTap=&#123;toggleDialog&#125;</span><br><span class="line">        /&gt;</span><br><span class="line">    ];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">        &lt;Paper style=&#123;paperStyle&#125; zDepth=&#123;<span class="number">2</span>&#125;&gt;</span><br><span class="line">            <span class="comment">// Card组件的expanded的值是一个布尔值，来自于父组件传下来的formExpanded，即应用的状态formExpanded，用来确定是否显示表单</span></span><br><span class="line">            &lt;Card style=&#123;&#123;<span class="attr">textAlign</span>: <span class="string">'left'</span>&#125;&#125; expanded=&#123;formExpanded&#125; onExpandChange=&#123;toggleFormExpanded&#125;&gt;</span><br><span class="line">                &lt;CardHeader</span><br><span class="line">                    title=<span class="string">"New Appointment"</span></span><br><span class="line">                    showExpandableButton=&#123;<span class="literal">true</span>&#125;</span><br><span class="line">                /&gt;</span><br><span class="line">                &lt;CardText expandable=&#123;<span class="literal">true</span>&#125;&gt;</span><br><span class="line">                    &lt;TextField</span><br><span class="line">                        floatingLabelText=<span class="string">"Guest's Name"</span></span><br><span class="line">                        underlineShow=&#123;<span class="literal">false</span>&#125;</span><br><span class="line">                        onChange=&#123;e =&gt; guestName = e.target.value.trim()&#125;</span><br><span class="line">                    /&gt;</span><br><span class="line">                    &lt;Divider /&gt;</span><br><span class="line">                    &lt;DatePicker</span><br><span class="line">                        hintText=<span class="string">"Date"</span></span><br><span class="line">                        underlineShow=&#123;<span class="literal">false</span>&#125;</span><br><span class="line">                        onChange=&#123;handleDateChange&#125;</span><br><span class="line">                    /&gt;</span><br><span class="line">                    &lt;Divider /&gt;</span><br><span class="line">                    &lt;TimePicker</span><br><span class="line">                        hintText=<span class="string">"Time"</span></span><br><span class="line">                        okLabel=<span class="string">"OK"</span></span><br><span class="line">                        cancelLabel=<span class="string">"Cancel"</span></span><br><span class="line">                        underlineShow=&#123;<span class="literal">false</span>&#125;</span><br><span class="line">                        onChange=&#123;handleTimeChange&#125;</span><br><span class="line">                    /&gt;</span><br><span class="line">                    &lt;Divider /&gt;</span><br><span class="line">                    &lt;TextField</span><br><span class="line">                        floatingLabelText=<span class="string">"Note"</span></span><br><span class="line">                        underlineShow=&#123;<span class="literal">false</span>&#125;</span><br><span class="line">                        onChange=&#123;e =&gt; note = e.target.value.trim()&#125;</span><br><span class="line">                    /&gt;</span><br><span class="line">                    &lt;Divider /&gt;</span><br><span class="line">                    &lt;RaisedButton label=<span class="string">"Add"</span> primary=&#123;<span class="literal">true</span>&#125; style=&#123;buttonStyle&#125; onClick=&#123;onAdd&#125;/&gt;</span><br><span class="line">                    &lt;RaisedButton label=<span class="string">"Cancel"</span> secondary=&#123;<span class="literal">true</span>&#125; style=&#123;buttonStyle&#125; onClick=&#123;toggleFormExpanded&#125;/&gt;</span><br><span class="line">                &lt;<span class="regexp">/CardText&gt;</span></span><br><span class="line"><span class="regexp">                /</span><span class="regexp">/ Dialog组件的open的值也是一个布尔值，来自于父组件传下来的open，即应用的状态openDialog，用来验证表单</span></span><br><span class="line"><span class="regexp">                &lt;Dialog</span></span><br><span class="line"><span class="regexp">                    title="Caution"</span></span><br><span class="line"><span class="regexp">                    actions=&#123;actions&#125;</span></span><br><span class="line"><span class="regexp">                    modal=&#123;false&#125;</span></span><br><span class="line"><span class="regexp">                    open=&#123;open&#125;</span></span><br><span class="line"><span class="regexp">                    onRequestClose=&#123;toggleDialog&#125;</span></span><br><span class="line"><span class="regexp">                &gt;</span></span><br><span class="line"><span class="regexp">                    All fileds are required!</span></span><br><span class="line"><span class="regexp">                &lt;/</span>Dialog&gt;</span><br><span class="line">            &lt;<span class="regexp">/Card&gt;</span></span><br><span class="line"><span class="regexp">        &lt;/</span>Paper&gt;</span><br><span class="line">    );</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> AddForm;</span><br></pre></td></tr></table></figure>
+
+<h3 id="搜索表单"><a href="#搜索表单" class="headerlink" title="搜索表单"></a>搜索表单</h3><p><code>components/Search.js</code>:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> TextField <span class="keyword">from</span> <span class="string">'material-ui/TextField'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> Search = <span class="function">(<span class="params">&#123;handleSearch&#125;</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">        &lt;div&gt;</span><br><span class="line">            &lt;TextField</span><br><span class="line">                hintText=<span class="string">"Search"</span></span><br><span class="line">                onChange=&#123;</span><br><span class="line">                    e =&gt; handleSearch(e.target.value)</span><br><span class="line">                &#125;</span><br><span class="line">            /&gt;</span><br><span class="line">        &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">    );</span></span><br><span class="line"><span class="regexp">&#125;;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">export default Search;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="排列选择"><a href="#排列选择" class="headerlink" title="排列选择"></a>排列选择</h3><p><code>components/Sort.js</code>:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> SelectField <span class="keyword">from</span> <span class="string">'material-ui/SelectField'</span>;</span><br><span class="line"><span class="keyword">import</span> MenuItem <span class="keyword">from</span> <span class="string">'material-ui/MenuItem'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> Sort = (&#123;</span><br><span class="line">    orderBy,</span><br><span class="line">    orderDir,</span><br><span class="line">    handleOrderByChange,</span><br><span class="line">    handleOrderDirChange</span><br><span class="line">&#125;) =&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">        &lt;div&gt;</span><br><span class="line">            &lt;SelectField</span><br><span class="line">                floatingLabelText=<span class="string">"Order By"</span></span><br><span class="line">                value=&#123;orderBy&#125;</span><br><span class="line">                style=&#123;&#123;<span class="attr">textAlign</span>: <span class="string">'left'</span>&#125;&#125;</span><br><span class="line">                onChange=&#123;(event, index, value) =&gt; &#123;handleOrderByChange(value)&#125;&#125;</span><br><span class="line">            &gt;</span><br><span class="line">                &lt;MenuItem value=<span class="string">'guestName'</span> primaryText=<span class="string">"Guest's name"</span> /&gt;</span><br><span class="line">                &lt;MenuItem value=<span class="string">'date'</span> primaryText=<span class="string">"Date"</span> /&gt;</span><br><span class="line">            &lt;<span class="regexp">/SelectField&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">            &lt;SelectField</span></span><br><span class="line"><span class="regexp">                floatingLabelText="Order Direction"</span></span><br><span class="line"><span class="regexp">                value=&#123;orderDir&#125;</span></span><br><span class="line"><span class="regexp">                style=&#123;&#123;textAlign: 'left'&#125;&#125;</span></span><br><span class="line"><span class="regexp">                onChange=&#123;(event, index, value) =&gt; &#123;handleOrderDirChange(value)&#125;&#125;</span></span><br><span class="line"><span class="regexp">            &gt;</span></span><br><span class="line"><span class="regexp">                &lt;MenuItem value='asc' primaryText="Ascending" /</span>&gt;</span><br><span class="line">                &lt;MenuItem value=<span class="string">'desc'</span> primaryText=<span class="string">"Descending"</span> /&gt;</span><br><span class="line">            &lt;<span class="regexp">/SelectField&gt;</span></span><br><span class="line"><span class="regexp">        &lt;/</span>div&gt;</span><br><span class="line">    );</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> Sort;</span><br></pre></td></tr></table></figure>
+
+<h3 id="预约列表"><a href="#预约列表" class="headerlink" title="预约列表"></a>预约列表</h3><p>这个组件的作用就是显示预约列表，接受父组件传来的apts数组和handleDelete函数，在点击RaisedButton的时候将apt.id传入handleDelete并执行。</p>
+<p><code>components/AptList.js</code>:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123;List, ListItem&#125; <span class="keyword">from</span> <span class="string">'material-ui/List'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123;Card, CardActions, CardHeader, CardTitle, CardText&#125; <span class="keyword">from</span> <span class="string">'material-ui/Card'</span>;</span><br><span class="line"><span class="keyword">import</span> RaisedButton <span class="keyword">from</span> <span class="string">'material-ui/RaisedButton'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> buttonStyle = &#123;</span><br><span class="line">    width: <span class="string">'60%'</span>,</span><br><span class="line">    margin: <span class="string">'12px 20%'</span>,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> AptList = <span class="function">(<span class="params">&#123;apts, handleDelete&#125;</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">        &lt;div&gt;</span><br><span class="line">            &lt;h2&gt;Appointments List&lt;<span class="regexp">/h2&gt;</span></span><br><span class="line"><span class="regexp">            &lt;List&gt;</span></span><br><span class="line"><span class="regexp">                /</span><span class="regexp">/ 这里的i也可以直接用apt.id</span></span><br><span class="line"><span class="regexp">                &#123;apts.map((apt, i) =&gt; (</span></span><br><span class="line"><span class="regexp">                    &lt;ListItem key=&#123;i&#125;&gt;</span></span><br><span class="line"><span class="regexp">                        &lt;Card style=&#123;&#123;textAlign: 'left'&#125;&#125;&gt;</span></span><br><span class="line"><span class="regexp">                            &lt;CardHeader</span></span><br><span class="line"><span class="regexp">                                title=&#123;apt.date&#125;</span></span><br><span class="line"><span class="regexp">                                subtitle=&#123;apt.time&#125;</span></span><br><span class="line"><span class="regexp">                                actAsExpander=&#123;true&#125;</span></span><br><span class="line"><span class="regexp">                                showExpandableButton=&#123;true&#125;</span></span><br><span class="line"><span class="regexp">                            /</span>&gt;</span><br><span class="line">                            &lt;CardTitle title=&#123;apt.guestName&#125;/&gt;</span><br><span class="line">                            &lt;CardText expandable=&#123;<span class="literal">true</span>&#125;&gt;</span><br><span class="line">                                &#123;apt.note&#125;</span><br><span class="line">                                &lt;CardActions&gt;</span><br><span class="line">                                    &lt;RaisedButton</span><br><span class="line">                                        style=&#123;buttonStyle&#125;</span><br><span class="line">                                        label=<span class="string">"Delete"</span></span><br><span class="line">                                        secondary=&#123;<span class="literal">true</span>&#125;</span><br><span class="line">                                        onClick=&#123;() =&gt; handleDelete(apt.id)&#125;</span><br><span class="line">                                    /&gt;</span><br><span class="line">                                &lt;<span class="regexp">/CardActions&gt;</span></span><br><span class="line"><span class="regexp">                            &lt;/</span>CardText&gt;</span><br><span class="line">                        &lt;<span class="regexp">/Card&gt;</span></span><br><span class="line"><span class="regexp">                    &lt;/</span>ListItem&gt;</span><br><span class="line">                ))&#125;</span><br><span class="line">            &lt;<span class="regexp">/List&gt;</span></span><br><span class="line"><span class="regexp">        &lt;/</span>div&gt;</span><br><span class="line">    );</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> AptList;</span><br></pre></td></tr></table></figure>
+
+<h2 id="处理不同的actions"><a href="#处理不同的actions" class="headerlink" title="处理不同的actions"></a>处理不同的actions</h2><h3 id="处理表单的显示和隐藏"><a href="#处理表单的显示和隐藏" class="headerlink" title="处理表单的显示和隐藏"></a>处理表单的显示和隐藏</h3><p><code>reducers/formExpanded.js</code>:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; TOGGLE_FORM_EXPANDED &#125; <span class="keyword">from</span> <span class="string">'../constants'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// formExpanded默认为false，即不显示，当发起类型为TOGGLE_FORM_EXPANDED的action的时候，将状态切换为true或者false</span></span><br><span class="line"><span class="keyword">const</span> formExpanded = <span class="function">(<span class="params">state=<span class="literal">false</span>, action</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">switch</span> (action.type) &#123;</span><br><span class="line">        <span class="keyword">case</span> TOGGLE_FORM_EXPANDED:</span><br><span class="line">            <span class="keyword">return</span> !state;</span><br><span class="line">        <span class="keyword">default</span>:</span><br><span class="line">            <span class="keyword">return</span> state;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> formExpanded;</span><br></pre></td></tr></table></figure>
+
+<h3 id="表单验证错误的提示对话框"><a href="#表单验证错误的提示对话框" class="headerlink" title="表单验证错误的提示对话框"></a>表单验证错误的提示对话框</h3><p><code>reducers/openDialog.js</code>:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; TOGGLE_DIALOG &#125; <span class="keyword">from</span> <span class="string">'../constants'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 这个action是由其他action引发的</span></span><br><span class="line"><span class="keyword">const</span> openDialog = <span class="function">(<span class="params">state=<span class="literal">false</span>, action</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">switch</span> (action.type) &#123;</span><br><span class="line">        <span class="keyword">case</span> TOGGLE_DIALOG:</span><br><span class="line">            <span class="keyword">return</span> !state;</span><br><span class="line">        <span class="keyword">default</span>:</span><br><span class="line">            <span class="keyword">return</span> state;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> openDialog;</span><br></pre></td></tr></table></figure>
+
+<h3 id="处理新建预约和删除预约"><a href="#处理新建预约和删除预约" class="headerlink" title="处理新建预约和删除预约"></a>处理新建预约和删除预约</h3><p><code>reducers/apts.js</code>:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; ADD_APT, DELETE_APT &#125; <span class="keyword">from</span> <span class="string">'../constants'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 用唯一的id来标识不同的预约，也可以直接用时间戳new Date()</span></span><br><span class="line"><span class="keyword">let</span> id = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 根据传入的数组和id来执行删除操作</span></span><br><span class="line"><span class="keyword">const</span> apts = <span class="function">(<span class="params">state=[], action</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> handleDelete = <span class="function">(<span class="params">arr, id</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">let</span> i=<span class="number">0</span>; i&lt;arr.length; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (arr[i].id === id) &#123;</span><br><span class="line">                <span class="keyword">return</span> [</span><br><span class="line">                    ...arr.slice(<span class="number">0</span>, i),</span><br><span class="line">                    ...arr.slice(i+<span class="number">1</span>)</span><br><span class="line">                ]</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">switch</span> (action.type) &#123;</span><br><span class="line">        <span class="comment">// 根据action传入的数据apt再加上id来生成一个新的预约</span></span><br><span class="line">        <span class="keyword">case</span> ADD_APT:</span><br><span class="line">            <span class="keyword">return</span> [</span><br><span class="line">                ...state,</span><br><span class="line">                <span class="built_in">Object</span>.assign(&#123;&#125;, action.apt, &#123;</span><br><span class="line">                    id: ++id</span><br><span class="line">                &#125;)</span><br><span class="line">            ]</span><br><span class="line">        <span class="keyword">case</span> DELETE_APT:</span><br><span class="line">            <span class="keyword">return</span> handleDelete(state, action.id);</span><br><span class="line">        <span class="keyword">default</span>:</span><br><span class="line">            <span class="keyword">return</span> state;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> apts;</span><br></pre></td></tr></table></figure>
+
+<h3 id="查询和排列方式"><a href="#查询和排列方式" class="headerlink" title="查询和排列方式"></a>查询和排列方式</h3><p>这三个函数的作用就是根据action传入的数据，更新state里的对应值，在这里并不会真正的去处理预约的列表。</p>
+<p><code>reducers/orderBy.js</code>:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; CHANGE_ORDER_BY &#125; <span class="keyword">from</span> <span class="string">'../constants'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> orderBy = <span class="function">(<span class="params">state=<span class="literal">null</span>, action</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">switch</span> (action.type) &#123;</span><br><span class="line">        <span class="keyword">case</span> CHANGE_ORDER_BY:</span><br><span class="line">            <span class="keyword">return</span> action.orderBy</span><br><span class="line">        <span class="keyword">default</span>:</span><br><span class="line">            <span class="keyword">return</span> state;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> orderBy;</span><br></pre></td></tr></table></figure>
+
+<p><code>reducers/orderDir.js</code>:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; CHANGE_ORDER_DIR &#125; <span class="keyword">from</span> <span class="string">'../constants'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> orderDir = <span class="function">(<span class="params">state=<span class="literal">null</span>, action</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">switch</span> (action.type) &#123;</span><br><span class="line">        <span class="keyword">case</span> CHANGE_ORDER_DIR:</span><br><span class="line">            <span class="keyword">return</span> action.orderDir</span><br><span class="line">        <span class="keyword">default</span>:</span><br><span class="line">            <span class="keyword">return</span> state;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> orderDir;</span><br></pre></td></tr></table></figure>
+
+<p><code>reducers/query.js</code>:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; QUERY &#125; <span class="keyword">from</span> <span class="string">'../constants'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> query = <span class="function">(<span class="params">state=<span class="literal">null</span>, action</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">switch</span> (action.type) &#123;</span><br><span class="line">        <span class="keyword">case</span> QUERY:</span><br><span class="line">            <span class="keyword">return</span> action.query;</span><br><span class="line">        <span class="keyword">default</span>:</span><br><span class="line">            <span class="keyword">return</span> state;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> query;</span><br></pre></td></tr></table></figure>
+
+<h3 id="合成reducers"><a href="#合成reducers" class="headerlink" title="合成reducers"></a>合成reducers</h3><p><code>reducers/index.js</code>:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; combineReducers &#125; <span class="keyword">from</span> <span class="string">'redux'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> apts <span class="keyword">from</span> <span class="string">'./apts'</span>;</span><br><span class="line"><span class="keyword">import</span> openDialog <span class="keyword">from</span> <span class="string">'./openDialog'</span>;</span><br><span class="line"><span class="keyword">import</span> formExpanded <span class="keyword">from</span> <span class="string">'./formExpanded'</span>;</span><br><span class="line"><span class="keyword">import</span> query <span class="keyword">from</span> <span class="string">'./query'</span>;</span><br><span class="line"><span class="keyword">import</span> orderBy <span class="keyword">from</span> <span class="string">'./orderBy'</span>;</span><br><span class="line"><span class="keyword">import</span> orderDir <span class="keyword">from</span> <span class="string">'./orderDir'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// redux提供的combineReducers函数用来将处理不同部分的state的函数合成一个</span></span><br><span class="line"><span class="comment">// 每当action进来的时候会经过每一个reducer函数，但是由于action类型(type)的不同</span></span><br><span class="line"><span class="comment">// 只有符合(switch语句的判断)的reducer才会处理,其他的只是将state原封不动返回</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> reducers = combineReducers(&#123;</span><br><span class="line">    apts,</span><br><span class="line">    openDialog,</span><br><span class="line">    formExpanded,</span><br><span class="line">    query,</span><br><span class="line">    orderBy,</span><br><span class="line">    orderDir</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> reducers;</span><br></pre></td></tr></table></figure>
+
+<h2 id="容器组件"><a href="#容器组件" class="headerlink" title="容器组件"></a>容器组件</h2><p><code>containers/AddForm.js</code>:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; connect &#125; <span class="keyword">from</span> <span class="string">'react-redux'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123; addApt, toggleDialog, toggleFormExpanded &#125; <span class="keyword">from</span> <span class="string">'../actions'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> AddForm <span class="keyword">from</span> <span class="string">'../components/AddForm'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// AddForm组件可通过props来获取两个state：open和formExpanded</span></span><br><span class="line"><span class="keyword">const</span> mapStateToProps = <span class="function">(<span class="params">state</span>) =&gt;</span> (&#123;</span><br><span class="line">    open: state.openDialog,</span><br><span class="line">    formExpanded: state.formExpanded</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使得AddForm组件可以通过props得到三个回调函数，调用即可相当于发起action</span></span><br><span class="line"><span class="keyword">const</span> mapDispatchToProps = (&#123;</span><br><span class="line">    toggleFormExpanded,</span><br><span class="line">    toggleDialog,</span><br><span class="line">    handleAdd: <span class="function"><span class="params">newApt</span> =&gt;</span> addApt(newApt)</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用react-redux提供的connect函数，可以将一个组件提升为容器组件，容器组件可直接获取到state、可以直接使用dispatch。</span></span><br><span class="line"><span class="comment">// 这个connect函数接受两个函数作为参数，这两个作为参数的函数的返回值都是对象, 按约定他们分别命名为mapStateToProps，mapDispatchToProps</span></span><br><span class="line"><span class="comment">// mapStateToProps确定了在这个组件中可以获得哪些state，这里的话只用到了两个UI相关的state：open和formExpanded，这些state都可通过组件的props来获取</span></span><br><span class="line"><span class="comment">// mapDispatchToProps本来应该是返回对象的函数，这里比较简单，直接写成一个对象，确定了哪些action是这个组件可以发起的，也是通过组件的props来获取</span></span><br><span class="line"><span class="comment">// connect函数的返回值是一个函数，接受一个组件作为参数。</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> connect(mapStateToProps, mapDispatchToProps)(AddForm);</span><br></pre></td></tr></table></figure>
+
+<p><code>containers/App.js</code>:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; connect &#125; <span class="keyword">from</span> <span class="string">'react-redux'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> MuiThemeProvider <span class="keyword">from</span> <span class="string">'material-ui/styles/MuiThemeProvider'</span></span><br><span class="line"><span class="keyword">import</span> injectTapEventPlugin <span class="keyword">from</span> <span class="string">'react-tap-event-plugin'</span>;</span><br><span class="line"></span><br><span class="line">injectTapEventPlugin();</span><br><span class="line"><span class="keyword">import</span> AppBar <span class="keyword">from</span> <span class="string">'material-ui/AppBar'</span>;</span><br><span class="line"><span class="keyword">import</span> Paper <span class="keyword">from</span> <span class="string">'material-ui/Paper'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> AddForm <span class="keyword">from</span> <span class="string">'../containers/AddForm'</span>;</span><br><span class="line"><span class="keyword">import</span> Search <span class="keyword">from</span> <span class="string">'../components/Search'</span>;</span><br><span class="line"><span class="keyword">import</span> Sort <span class="keyword">from</span> <span class="string">'../components/Sort'</span>;</span><br><span class="line"><span class="keyword">import</span> AptList <span class="keyword">from</span> <span class="string">'../components/AptList'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123; deleteApt, query, changeOrderBy, changeOrderDir &#125; <span class="keyword">from</span> <span class="string">'../actions'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> paperStyle = &#123;</span><br><span class="line">  minHeight: <span class="number">600</span>,</span><br><span class="line">  width: <span class="number">360</span>,</span><br><span class="line">  margin: <span class="string">'20px auto'</span>,</span><br><span class="line">  textAlign: <span class="string">'center'</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> App = (&#123;</span><br><span class="line">  apts,</span><br><span class="line">  dispatch,</span><br><span class="line">  orderBy,</span><br><span class="line">  orderDir,</span><br><span class="line">  handleSearch,</span><br><span class="line">  handleDelete,</span><br><span class="line">  handleOrderByChange,</span><br><span class="line">  handleOrderDirChange</span><br><span class="line">&#125;) =&gt; (</span><br><span class="line">  &lt;MuiThemeProvider&gt;</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;AppBar</span><br><span class="line">        title=<span class="string">"React Redux Appointment"</span></span><br><span class="line">        showMenuIconButton=&#123;<span class="literal">false</span>&#125;</span><br><span class="line">      /&gt;</span><br><span class="line">      &lt;Paper style=&#123;paperStyle&#125; zDepth=&#123;<span class="number">5</span>&#125;&gt;</span><br><span class="line">        &lt;AddForm /&gt;</span><br><span class="line">        &lt;Search handleSearch=&#123;handleSearch&#125;/&gt;</span><br><span class="line">        &lt;Sort</span><br><span class="line">          orderBy=&#123;orderBy&#125;</span><br><span class="line">          orderDir=&#123;orderDir&#125;</span><br><span class="line">          handleOrderByChange=&#123;handleOrderByChange&#125;</span><br><span class="line">          handleOrderDirChange=&#123;handleOrderDirChange&#125;</span><br><span class="line">        /&gt;</span><br><span class="line">        &lt;AptList</span><br><span class="line">          apts=&#123;apts&#125;</span><br><span class="line">          handleDelete=&#123;handleDelete&#125;</span><br><span class="line">        /&gt;</span><br><span class="line">      &lt;<span class="regexp">/Paper&gt;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>div&gt;</span><br><span class="line">  &lt;<span class="regexp">/MuiThemeProvider&gt;</span></span><br><span class="line"><span class="regexp">);</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/ 处理搜索和排序，返回处理后数组</span></span><br><span class="line"><span class="regexp">const handledApts = (apts, query, orderBy, orderDir) =&gt; &#123;</span></span><br><span class="line"><span class="regexp">    const filterArr = (arr, query) =&gt; &#123;</span></span><br><span class="line"><span class="regexp">        return arr.filter(item =&gt; (</span></span><br><span class="line"><span class="regexp">            item.guestName.toLowerCase().indexOf(query) !== -1 ||</span></span><br><span class="line"><span class="regexp">            item.date.indexOf(query) !== -1 ||</span></span><br><span class="line"><span class="regexp">            item.time.indexOf(query) !== -1 ||</span></span><br><span class="line"><span class="regexp">            item.note.toLowerCase().indexOf(query) !== -1)</span></span><br><span class="line"><span class="regexp">        );</span></span><br><span class="line"><span class="regexp">    &#125;;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">    const sortArr = (arr, orderBy, orderDir) =&gt; &#123;</span></span><br><span class="line"><span class="regexp">      if (orderBy &amp;&amp; orderDir) &#123;</span></span><br><span class="line"><span class="regexp">        return arr.sort((apt1, apt2) =&gt; &#123;</span></span><br><span class="line"><span class="regexp">          const value1 = apt1[orderBy].toString().toLowerCase();</span></span><br><span class="line"><span class="regexp">          const value2 = apt2[orderBy].toString().toLowerCase();</span></span><br><span class="line"><span class="regexp">            if (value1 &lt; value2) &#123;</span></span><br><span class="line"><span class="regexp">                return orderDir === 'asc' ? -1 : 1;</span></span><br><span class="line"><span class="regexp">            &#125; else if (value1 &gt; value2) &#123;</span></span><br><span class="line"><span class="regexp">                return orderDir === 'asc' ? 1 : -1;</span></span><br><span class="line"><span class="regexp">            &#125; else &#123;</span></span><br><span class="line"><span class="regexp">                return 0;</span></span><br><span class="line"><span class="regexp">            &#125;</span></span><br><span class="line"><span class="regexp">        &#125;)</span></span><br><span class="line"><span class="regexp">      &#125; else &#123;</span></span><br><span class="line"><span class="regexp">        return arr;</span></span><br><span class="line"><span class="regexp">      &#125;</span></span><br><span class="line"><span class="regexp">    &#125;;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">    if (!query) &#123;</span></span><br><span class="line"><span class="regexp">      return sortArr(apts, orderBy, orderDir);</span></span><br><span class="line"><span class="regexp">    &#125; else &#123;</span></span><br><span class="line"><span class="regexp">      return sortArr(filterArr(apts, query), orderBy, orderDir);</span></span><br><span class="line"><span class="regexp">    &#125;</span></span><br><span class="line"><span class="regexp">&#125;;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/ App组件可通过props来获取到四个state：query, orderBy, orderDir, apts</span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/ 这里是真正处理搜索和排序的地方，并不是直接将state中的apts返回，而是调用handleApts，返回处理的数组</span></span><br><span class="line"><span class="regexp">const mapStateToProps = (state) =&gt; (&#123;</span></span><br><span class="line"><span class="regexp">    query: state.query,</span></span><br><span class="line"><span class="regexp">    orderBy: state.orderBy,</span></span><br><span class="line"><span class="regexp">    orderDir: state.orderDir,</span></span><br><span class="line"><span class="regexp">    apts: handledApts(state.apts, state.query, state.orderBy, state.orderDir),</span></span><br><span class="line"><span class="regexp">&#125;);</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/ App组件可通过props来获取到四个函数，也就是发起四个action：handleSearch，handleDelete，handleOrderByChange，handleOrderDirChange</span></span><br><span class="line"><span class="regexp">const mapDispatchToProps = (&#123;</span></span><br><span class="line"><span class="regexp">    handleSearch: searchText =&gt; query(searchText),</span></span><br><span class="line"><span class="regexp">    handleDelete: id =&gt; deleteApt(id),</span></span><br><span class="line"><span class="regexp">    handleOrderByChange: orderBy =&gt; changeOrderBy(orderBy),</span></span><br><span class="line"><span class="regexp">    handleOrderDirChange: orderDir =&gt; changeOrderDir(orderDir)</span></span><br><span class="line"><span class="regexp">&#125;);</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">export default connect(mapStateToProps, mapDispatchToProps)(App);</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="入口文件"><a href="#入口文件" class="headerlink" title="入口文件"></a>入口文件</h2><p><code>src/index.js</code>:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> ReactDOM <span class="keyword">from</span> <span class="string">'react-dom'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123; createStore &#125; <span class="keyword">from</span> <span class="string">'redux'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; Provider &#125; <span class="keyword">from</span> <span class="string">'react-redux'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> App <span class="keyword">from</span> <span class="string">'./containers/App'</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">'./index.css'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> reducers <span class="keyword">from</span> <span class="string">'./reducers'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用createStore表示应用的store，传入的第一个参数是reducers，第二个参数是Redux的调试工具</span></span><br><span class="line"><span class="keyword">const</span> store = createStore(reducers, <span class="built_in">window</span>.__REDUX_DEVTOOLS_EXTENSION__ &amp;&amp; <span class="built_in">window</span>.__REDUX_DEVTOOLS_EXTENSION__());</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用react-redux提供的Provider组件，使App组件及子组件可以得到store的相关的东西，如store.getState()，store.dispatch()等。</span></span><br><span class="line">ReactDOM.render(</span><br><span class="line">  &lt;Provider store=&#123;store&#125;&gt;</span><br><span class="line">    &lt;App /&gt;</span><br><span class="line">  &lt;<span class="regexp">/Provider&gt;,</span></span><br><span class="line"><span class="regexp">  document.getElementById('root')</span></span><br><span class="line"><span class="regexp">);</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="结尾"><a href="#结尾" class="headerlink" title="结尾"></a>结尾</h2><p>React提供的是通过state来控制控制UI和单向数据流动，<br>Redux提供的是单一数据源和只能通过action和reducer来处理state的更新。</p>
+<p>以其中的点击按钮显示新建预约表单的过程来捋一捋React、React-Redux的逻辑(灵感来源于自Cory House大神)：</p>
+<ul>
+<li>用户：点击按钮</li>
+<li>React：哈喽，action生成函数toggleFormExpanded，有人点击了展开新建预约的表单。</li>
+<li>Action： 收到，谢谢React，我马上发布一个action也就是{type: TOGGLE_FORM_EXPANDED}告诉reducers来更新state。</li>
+<li>Reducer： 谢谢Action，我收到你的传过来要执行的action了，我会根据你传递进来的{type: TOGGLE_FORM_EXPANDED}，先复制一份当前的state，然后把state中的formExpanded的值更新为true，然后把新的state给Store。</li>
+<li>Store：嗯，Reducer你干得漂亮，我收到了新的state，我会通知所有与我连接的组件，确保他们会收到新state。</li>
+<li>React-Redux：啊，感谢Store传来的新数据，我现在就看看React界面是否需要需要发生变化，啊，需要把新建预约的表单显示出来啊，那界面还是要更新一下的，交给你了，React。</li>
+<li>React：好的，有新的数据由store通过props传递下来的数据了，我会马上根据这个数据把新建预约的表单显示出来。</li>
+<li>用户：看到了新建预约的表单。</li>
+</ul>
+<p>如果觉得还不错，来个star吧。(笑脸)</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/react/" rel="tag"># react</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2016/12/22/JavaScript%E6%95%B0%E7%BB%84%E5%8E%BB%E9%87%8D/" rel="prev" title="JavaScript数组去重">
+      <i class="fa fa-chevron-left"></i> JavaScript数组去重
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2017/03/28/React%E7%BB%84%E4%BB%B6%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" rel="next" title="React组件最佳实践">
+      React组件最佳实践 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#React-Redux-Appointment"><span class="nav-number">1.</span> <span class="nav-text">React-Redux-Appointment</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#文件结构"><span class="nav-number">1.1.</span> <span class="nav-text">文件结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用到的模块"><span class="nav-number">1.2.</span> <span class="nav-text">用到的模块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#所有的state"><span class="nav-number">1.3.</span> <span class="nav-text">所有的state</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#所有的Action"><span class="nav-number">1.4.</span> <span class="nav-text">所有的Action</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UI组件"><span class="nav-number">1.5.</span> <span class="nav-text">UI组件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#样式"><span class="nav-number">1.5.1.</span> <span class="nav-text">样式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#表单组件"><span class="nav-number">1.5.2.</span> <span class="nav-text">表单组件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#搜索表单"><span class="nav-number">1.5.3.</span> <span class="nav-text">搜索表单</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#排列选择"><span class="nav-number">1.5.4.</span> <span class="nav-text">排列选择</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#预约列表"><span class="nav-number">1.5.5.</span> <span class="nav-text">预约列表</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#处理不同的actions"><span class="nav-number">1.6.</span> <span class="nav-text">处理不同的actions</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#处理表单的显示和隐藏"><span class="nav-number">1.6.1.</span> <span class="nav-text">处理表单的显示和隐藏</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#表单验证错误的提示对话框"><span class="nav-number">1.6.2.</span> <span class="nav-text">表单验证错误的提示对话框</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#处理新建预约和删除预约"><span class="nav-number">1.6.3.</span> <span class="nav-text">处理新建预约和删除预约</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查询和排列方式"><span class="nav-number">1.6.4.</span> <span class="nav-text">查询和排列方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#合成reducers"><span class="nav-number">1.6.5.</span> <span class="nav-text">合成reducers</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#容器组件"><span class="nav-number">1.7.</span> <span class="nav-text">容器组件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#入口文件"><span class="nav-number">1.8.</span> <span class="nav-text">入口文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结尾"><span class="nav-number">1.9.</span> <span class="nav-text">结尾</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Cy</p>
+  <div class="site-description" itemprop="description">生存, 荣耀</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cy</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
